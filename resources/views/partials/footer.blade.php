@@ -1,0 +1,1 @@
+<footer class="text-center text-xs text-gray-400 py-4">© {{ date('Y') }} WalletWise — Personal Expense Tracker</footer>

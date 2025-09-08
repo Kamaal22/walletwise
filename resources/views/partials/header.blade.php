@@ -11,10 +11,10 @@
       <div class="flex items-center gap-4">
         <nav class="hidden md:flex gap-4 text-sm text-gray-600">
           <a href="{{ route('dashboard') }}" class="hover:text-gray-900">Dashboard</a>
-          <a href="{{ route('accounts') }}" class="hover:text-gray-900">Accounts</a>
-          <a href="{{ route('transactions') }}" class="hover:text-gray-900">Transactions</a>
-          <a href="{{ route('budgets') }}" class="hover:text-gray-900">Budgets</a>
-          <a href="{{ route('reports') }}" class="hover:text-gray-900">Reports</a>
+          <a href="{{ route('accounts.index') }}" class="hover:text-gray-900">Accounts</a>
+          <a href="{{ route('transactions.index') }}" class="hover:text-gray-900">Transactions</a>
+          <a href="{{ route('budgets.index') }}" class="hover:text-gray-900">Budgets</a>
+          <a href="{{ route('reports.index') }}" class="hover:text-gray-900">Reports</a>
         </nav>
         <button class="bg-white border border-gray-200 px-3 py-2 rounded-lg text-sm shadow-sm">Export</button>
         <div class="flex items-center gap-3">

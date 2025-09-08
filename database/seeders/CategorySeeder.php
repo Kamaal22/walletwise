@@ -14,11 +14,11 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Food', 'type' => 'expense'],
-            ['name' => 'Transport', 'type' => 'expense'],
-            ['name' => 'Bills', 'type' => 'expense'],
-            ['name' => 'Salary', 'type' => 'income'],
-            ['name' => 'Freelance', 'type' => 'income']
+            ['user_id' => 1, 'name' => 'Food', 'type' => 'expense'],
+            ['user_id' => 1, 'name' => 'Transport', 'type' => 'expense'],
+            ['user_id' => 1, 'name' => 'Bills', 'type' => 'expense'],
+            ['user_id' => 1, 'name' => 'Salary', 'type' => 'income'],
+            ['user_id' => 1, 'name' => 'Freelance', 'type' => 'income']
         ];
 
         Category::insert($categories);

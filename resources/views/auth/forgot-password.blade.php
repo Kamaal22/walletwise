@@ -16,9 +16,9 @@
       @csrf
 
       <div>
-        <label class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" name="email" value="{{ old('email') }}" required autofocus
-          class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
+          class="mt-1 w-full border border-gray-300 rounded-md  focus:ring-primary p-1">
       </div>
 
       <button type="submit"

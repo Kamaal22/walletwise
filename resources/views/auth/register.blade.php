@@ -6,7 +6,7 @@
     <h2 class="text-2xl font-bold text-center mb-6">Create your WalletWise account</h2>
 
     @if ($errors->any())
-      <div class="mb-4 text-red-600 text-sm">
+      <div class="mb-4 text-red-600 text-sm text-center bg-red-50 p-2">
         <ul>
           @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -19,27 +19,27 @@
       @csrf
 
       <div>
-        <label class="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" name="name" value="{{ old('name') }}" required autofocus
-          class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" required autofocus
+          class="mt-1 w-full border border-gray-300 rounded-md  focus:ring-primary p-1">
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" name="email" value="{{ old('email') }}" required
-          class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" id="email" name="email" value="{{ old('email') }}" required
+          class="mt-1 w-full border border-gray-300 rounded-md  focus:ring-primary p-1">
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700">Password</label>
-        <input type="password" name="password" required
-          class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" id="password" name="password" required
+          class="mt-1 w-full border border-gray-300 rounded-md  focus:ring-primary p-1">
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
-        <input type="password" name="password_confirmation" required
-          class="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
+        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+        <input type="password" id="password_confirmation" name="password_confirmation" required
+          class="mt-1 w-full border border-gray-300 rounded-md  focus:ring-primary p-1">
       </div>
 
       <button type="submit"

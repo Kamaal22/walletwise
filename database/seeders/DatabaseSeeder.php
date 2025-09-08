@@ -17,34 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([
-        //     UserSeeder::class,
-        //     AccountSeeder::class,
-        //     BudgetSeeder::class,
-        //     CategorySeeder::class,
-        //     TransactionSeeder::class,
-        // ]);
-
-        // Default user
-        $user = User::firstOrCreate([
-            'email' => 'user@example.com',
-        ], [
-            'name' => 'Default User',
-            'password' => bcrypt('password'),
-        ]);
-
-        // Categories
-        Category::factory()->count(6)->create();
-
-        // Accounts
-        Account::factory()->count(2)->create();
-
-        // Transactions
-        Transaction::factory()->count(30)->create([
-            'user_id' => $user->id,
-        ]);
-
-        // Budgets
-        Budget::factory()->count(3)->create();
+        $this->call(UserSeeder::class);
+        $this->call(AccountSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(BudgetSeeder::class);
+        $this->call(BudgetSeeder::class);
+        $this->call(TransactionSeeder::class);
     }
 }

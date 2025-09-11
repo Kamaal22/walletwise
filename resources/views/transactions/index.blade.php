@@ -12,7 +12,7 @@
     </a>
   </div>
 
-  <div class="bg-white shadow rounded-lg overflow-hidden">
+  <div class="bg-white shadow rounded-lg overflow-scroll">
     <table class="min-w-full text-sm">
       <thead class="bg-gray-50 text-left">
         <tr>
@@ -35,10 +35,18 @@
               {{ $txn->amount }}
             </td>
             <td class="px-4 py-2">
-              <form method="POST" action="{{ route('transactions.destroy', $txn) }}">
-                @csrf @method('DELETE')
-                <button type="submit" class="text-red-600 hover:underline">Delete</button>
-              </form>
+              <div class="flex items-center space-x-3">
+                <a href="{{ route('transactions.edit', $txn) }}" title="Edit" class="text-gray-600 hover:text-primary">
+                  <i class="p-2 bg-primary/10 rounded text-primary ri-edit-box-line text-lg"></i>
+                </a>
+
+                @php
+                  $msg = 'Are you sure you want to delete this transaction: ' . ($txn->description ?? $txn->category->name . ' on ' . $txn->date->format('d M Y'));
+                @endphp
+                <button type="button" title="Delete" onclick="showConfirmModal({{ json_encode($msg) }}, {{ json_encode(route('transactions.destroy', $txn)) }})" class="text-red-600 hover:text-red-800">
+                  <i class="p-2 bg-red-50 rounded ri-delete-bin-line text-lg"></i>
+                </button>
+              </div>
             </td>
           </tr>
         @empty
@@ -54,4 +62,5 @@
     {{ $transactions->links() }}
   </div>
 </div>
+  @include('partials.confirm-modal')
 @endsection

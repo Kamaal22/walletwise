@@ -9,8 +9,17 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $accounts = auth()->user()->accounts()->with('transactions')->get();
-        return view('accounts.index', compact('accounts'));
+    $query = auth()->user()->accounts()->withCount('transactions');
+
+    // Sorting
+    $sort = request('sort', 'name');
+    $dir = request('dir', 'asc');
+    if (!in_array($sort, ['name', 'balance', 'transactions_count'])) $sort = 'name';
+    if (!in_array($dir, ['asc', 'desc'])) $dir = 'asc';
+
+    $accounts = $query->orderBy($sort, $dir)->get();
+
+    return view('accounts.index', compact('accounts', 'sort', 'dir'));
     }
 
     public function create()
@@ -32,13 +41,11 @@ class AccountController extends Controller
 
     public function edit(Account $account)
     {
-        $this->authorize('update', $account);
         return view('accounts.edit', compact('account'));
     }
 
     public function update(Request $request, Account $account)
     {
-        $this->authorize('update', $account);
 
         $request->validate([
             'name'    => 'required|string|max:255',
@@ -52,7 +59,6 @@ class AccountController extends Controller
 
     public function destroy(Account $account)
     {
-        $this->authorize('delete', $account);
         $account->delete();
 
         return redirect()->route('accounts.index')->with('success', 'Account deleted.');

@@ -12,7 +12,7 @@ class Budget extends Model
     protected $fillable = [
         'user_id',
         'category_id',
-        'limit',
+        'amount',
         'start_date',
         'end_date',
     ];
@@ -20,7 +20,7 @@ class Budget extends Model
     protected $casts = [
         'user_id' => 'integer',
         'category_id' => 'integer',
-        'limit' => 'decimal:2',
+        'amount' => 'decimal:2',
         'start_date' => 'date',
         'end_date' => 'date',
     ];
@@ -42,6 +42,18 @@ class Budget extends Model
         return $this->category->transactions()
             ->whereBetween('date', [$this->start_date, $this->end_date])
             ->sum('amount');
+    }
+
+    public function spentPercent()
+    {
+        $amount = $this->amount;
+        if (! $amount || $amount <= 0) {
+            return 0;
+        }
+
+        $percent = (abs($this->spent()) / $amount) * 100;
+
+        return (float) round(min($percent, 100), 2);
     }
 
     public function remaining()

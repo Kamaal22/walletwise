@@ -39,7 +39,7 @@
                                 <span>${{ $budget->spent() }} / ${{ $budget->amount }}</span>
                             </div>
                             <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="h-2 rounded-full" style="width:{{ $budget->amount > 0 ? round(($budget->spent()/ $budget->amount)*100) : 0 }}%; background: linear-gradient(90deg,var(--tw-gradient-stops)); --tw-gradient-from:#0ea5a4; --tw-gradient-to:#34d399"></div>
+                              {{ $budget->amount > 0 ? round(($budget->spent()/ $budget->amount)*100) : 0 }}
                             </div>
                         </div>
                     @endforeach
@@ -96,8 +96,8 @@
                                     <p class="text-sm font-medium">{{ $txn->category->name ?? 'N/A' }} — {{ $txn->description }}</p>
                                     <p class="text-xs text-gray-500">{{ $txn->category->type ?? 'Expense' }} • {{ $txn->date->format('d M') }}</p>
                                 </div>
-                                <div class="text-sm {{ $txn->amount > 0 ? 'text-green-600' : 'text-red-600' }}">
-                                    {{ $txn->amount > 0 ? '+$'.$txn->amount : '-$'.abs($txn->amount) }}
+                                <div class="text-sm {{ (is_string($txn->type) && strtolower($txn->type) === 'expense') ? 'text-red-600' : 'text-green-600' }}">
+                                   {{ (is_string($txn->type) && strtolower($txn->type) === 'expense') ?  '-$'.abs($txn->amount) : '+$'.$txn->amount }}
                                 </div>
                             </li>
                         @endforeach
@@ -141,10 +141,10 @@
 <script>
 const ctx = document.getElementById('expensesChart').getContext('2d');
 const data = {
-    labels: {!! json_encode($user->transactions()->latest('date')->take(6)->pluck('date')->map(fn($d)=>$d->format('M')) ) !!},
+    labels: {!! json_encode($user->transactions()->latest('date')->take(6)->pluck('date')->map(function($d) { return $d->format('M'); })->toArray()) !!},
     datasets: [{
         label: 'Expenses',
-        data: {!! json_encode($user->transactions()->where('amount','<',0)->latest('date')->take(6)->pluck('amount')->map(fn($v)=>abs($v))) !!},
+        data: {!! json_encode($user->transactions()->where('amount','<',0)->latest('date')->take(6)->pluck('amount')->map(function($v) { return abs($v); })->toArray()) !!},
         backgroundColor: '#0ea5a4'
     }]
 };

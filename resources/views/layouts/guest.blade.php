@@ -26,7 +26,7 @@
   </script>
 </head>
 
-<body class="antialiased bg-gray-50">
+<body class="subpixel-antialiased min-h-screen flex items-center justify-center bg-gray-50">
   @yield('content')
 </body>
 

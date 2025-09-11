@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -41,9 +42,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('accounts', AccountController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::resource('categories', CategoryController::class);
     Route::resource('budgets', BudgetController::class);
     Route::resource('reports', ReportController::class);
+    Route::resource('profile', ReportController::class);
+    Route::resource('settings', ReportController::class);
 });

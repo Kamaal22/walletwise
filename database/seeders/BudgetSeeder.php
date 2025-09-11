@@ -18,7 +18,7 @@ class BudgetSeeder extends Seeder
                 [
                     'user_id' => 1,
                     'category_id' => 2,
-                    'limit' => 50,
+                    'amount' => 50,
                     'start_date' => '2025-09-01',
                     'end_date' => '2025-09-30',
                     'created_at' => now(),
@@ -27,7 +27,7 @@ class BudgetSeeder extends Seeder
                 [
                     'user_id' => 1,
                     'category_id' => 1,
-                    'limit' => 100,
+                    'amount' => 100,
                     'start_date' => '2025-09-01',
                     'end_date' => '2025-09-15',
                     'created_at' => now(),
@@ -36,7 +36,7 @@ class BudgetSeeder extends Seeder
                 [
                     'user_id' => 1,
                     'category_id' => 3,
-                    'limit' => 75,
+                    'amount' => 75,
                     'start_date' => '2025-10-01',
                     'end_date' => '2025-10-31',
                     'created_at' => now(),
@@ -45,7 +45,7 @@ class BudgetSeeder extends Seeder
                 [
                     'user_id' => 1,
                     'category_id' => 4,
-                    'limit' => 30,
+                    'amount' => 30,
                     'start_date' => '2025-08-15',
                     'end_date' => '2025-09-14',
                     'created_at' => now(),

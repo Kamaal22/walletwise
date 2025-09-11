@@ -1,7 +1,6 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
   <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
     <h2 class="text-2xl font-bold text-center mb-6">Login to WalletWise</h2>
 
@@ -49,5 +48,4 @@
       <a href="{{ route('register') }}" class="text-primary hover:underline">Sign up</a>
     </p>
   </div>
-</div>
 @endsection

@@ -64,7 +64,10 @@ class BudgetController extends Controller
         ]);
 
 
-        $budget->update($request->only('category_id', 'amount', 'start_date', 'end_date'));
+        $budget->update($request->only(array_merge(
+            $request->only('category_id', 'amount', 'start_date', 'end_date'),
+            ['user_id' => auth()->id()]
+        )));
 
         return redirect()->route('budgets.index')->with('success', 'Budget updated.');
     }

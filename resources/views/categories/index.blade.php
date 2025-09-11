@@ -7,7 +7,7 @@
     <a href="{{ route('categories.create') }}" class="inline-flex items-center px-4 py-2 bg-primary text-white text-sm rounded-lg shadow hover:bg-primary/90">Add Category</a>
   </div>
 
-  <form method="GET" class="mb-4 flex gap-2 items-center">
+  <form method="GET" class="mb-4 flex gap-2 items-center overflow-scroll">
     <input type="text" name="q" value="{{ request('q') }}" placeholder="Search categories" class="border rounded px-3 py-2 text-sm" />
     <select name="sort" class="border rounded px-3 py-2 text-sm">
       <option value="name" @selected(request('sort')=='name')>Name</option>

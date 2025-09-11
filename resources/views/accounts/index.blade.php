@@ -11,7 +11,7 @@
       Add Account
     </a>
   </div>
-  <form method="GET" class="mb-4 flex gap-2 items-center">
+  <form method="GET" class="mb-4 flex gap-2 items-center overflow-scroll">
     <select name="sort" class="border rounded px-3 py-2 text-sm">
       <option value="name" @selected(request('sort')=='name')>Name</option>
       <option value="balance" @selected(request('sort')=='balance')>Balance</option>

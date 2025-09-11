@@ -39,7 +39,59 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Amount</label>
-          <input type="number" step="0.01" name="amount" value="{{ old('amount') }}" class="mt-1 block w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required>
+
+          <div class="mt-1 flex">
+            <button
+              type="button"
+              id="sign-toggle"
+              aria-pressed="{{ old('sign', '-') === '-' ? 'true' : 'false' }}"
+              class="inline-flex items-center px-3 py-2 border border-r-0 rounded-l-md text-sm focus:outline-none
+                 {{ old('sign', '-') === '-' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
+              {{ old('sign', '-') === '-' ? '-' : '+' }}
+            </button>
+
+            <input
+              type="number"
+              step="0.01"
+              name="amount"
+              value="{{ old('amount') }}"
+              class="flex-1 block w-full border rounded-r-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            >
+
+            <input type="hidden" name="sign" id="sign-input" value="{{ old('sign', '-') }}">
+          </div>
+
+          <script>
+            (function () {
+              var btn = document.getElementById('sign-toggle');
+              var hidden = document.getElementById('sign-input');
+
+              if (!btn || !hidden) return;
+
+              function applyStyles() {
+            if (hidden.value === '-') {
+              btn.textContent = '-';
+              btn.classList.remove('bg-green-100','text-green-600');
+              btn.classList.add('bg-red-100','text-red-600');
+              btn.setAttribute('aria-pressed','true');
+            } else {
+              btn.textContent = '+';
+              btn.classList.remove('bg-red-100','text-red-600');
+              btn.classList.add('bg-green-100','text-green-600');
+              btn.setAttribute('aria-pressed','false');
+            }
+              }
+
+              btn.addEventListener('click', function () {
+            hidden.value = hidden.value === '-' ? '+' : '-';
+            applyStyles();
+              });
+
+              // initialize
+              applyStyles();
+            })();
+          </script>
         </div>
       </div>
 

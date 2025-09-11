@@ -38,7 +38,10 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name',
         ]);
 
-        Category::create($request->only('name'));
+        Category::create(array_merge(
+            $request->only('name'),
+            ['user_id' => auth()->id()]
+        ));
 
         return redirect()->route('categories.index')->with('success', 'Category created.');
     }
@@ -54,7 +57,10 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
         ]);
 
-        $category->update($request->only('name'));
+        $category->update(array_merge(
+            $request->only('name'),
+            ['user_id' => auth()->id()]
+        ));
 
         return redirect()->route('categories.index')->with('success', 'Category updated.');
     }

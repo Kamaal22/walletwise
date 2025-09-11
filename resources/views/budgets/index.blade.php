@@ -11,7 +11,7 @@
       Add Budget
     </a>
   </div>
-  <form method="GET" class="mb-4 flex gap-2 items-center">
+  <form method="GET" class="mb-4 flex gap-2 items-center overflow-scroll">
     <select name="category" class="border rounded px-3 py-2 text-sm">
       <option value="">All categories</option>
       @foreach(\App\Models\Category::all() as $cat)

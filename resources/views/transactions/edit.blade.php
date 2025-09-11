@@ -38,6 +38,7 @@
           </select>
         </div>
 
+        
         <div>
           <label class="block text-sm font-medium text-gray-700">Amount</label>
           <input type="number" step="0.01" name="amount" value="{{ old('amount', $transaction->amount) }}" class="mt-1 block w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary" required>

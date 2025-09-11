@@ -49,6 +49,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('budgets', BudgetController::class);
     Route::resource('reports', ReportController::class);
-    Route::resource('profile', ReportController::class);
-    Route::resource('settings', ReportController::class);
+    // profile & settings
+    Route::get('settings', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('settings.edit');
+    Route::post('settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
+    // optional profile routes (edit/update) could reuse SettingsController
+    Route::get('profile', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('profile.edit');
+    Route::post('profile', [\App\Http\Controllers\SettingsController::class, 'update'])->name('profile.update');
+    // mock export page
+    Route::get('export', function(){ return view('export.index'); })->name('export.index');
+    // server-side export endpoint
+    Route::post('export', [\App\Http\Controllers\ExportController::class, 'export'])->name('export.post');
+    // list and download generated exports
+    Route::get('exports', [\App\Http\Controllers\ExportsController::class, 'index'])->name('exports.index');
+    Route::get('exports/{export}/download', [\App\Http\Controllers\ExportsController::class, 'download'])->name('exports.download');
 });

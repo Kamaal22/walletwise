@@ -26,18 +26,18 @@
       <div class="hidden md:flex items-center gap-4">
         <nav class="flex gap-6 text-sm text-gray-600 dark:text-gray-300">
           @php
-            $initials = 'U';
-            if ($user = auth()->user()) {
-              $parts = preg_split('/\s+/', trim($user->name ?? ''));
-              if (count($parts) >= 2) {
-                $initials = strtoupper($parts[0][0] . $parts[1][0]);
-              } elseif (count($parts) === 1) {
-                $initials = strtoupper(substr($parts[0], 0, 2));
-              }
-            }
-            function isActiveRoute($routeName) {
-              return request()->routeIs($routeName) ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-gray-900 dark:hover:text-white';
-            }
+          $initials = 'U';
+          if ($user = auth()->user()) {
+          $parts = preg_split('/\s+/', trim($user->name ?? ''));
+          if (count($parts) >= 2) {
+          $initials = strtoupper($parts[0][0] . $parts[1][0]);
+          } elseif (count($parts) === 1) {
+          $initials = strtoupper(substr($parts[0], 0, 2));
+          }
+          }
+          function isActiveRoute($routeName) {
+          return request()->routeIs($routeName) ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-gray-900 dark:hover:text-white';
+          }
           @endphp
 
           <a href="{{ route('dashboard') }}" class="{{ isActiveRoute('dashboard') }}">Dashboard</a>
@@ -53,19 +53,19 @@
         </button>
 
         <!-- Profile dropdown desktop -->
-<div class="relative" id="profileDropdownWrapper">
-  <button id="profileDropdownBtn" class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm text-gray-700 dark:text-gray-200 font-semibold select-none focus:outline-none">
-    {{ $initials }}
-  </button>
-  <div id="profileDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700 hidden">
-    <a href="{ route('profile.show') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
-    <a href="{{ route('settings.index') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
-    <form method="POST" action="{{ route('logout') }}">
-      @csrf
-      <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
-    </form>
-  </div>
-</div>
+        <div class="relative" id="profileDropdownWrapper">
+          <button id="profileDropdownBtn" class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm text-gray-700 dark:text-gray-200 font-semibold select-none focus:outline-none">
+            {{ $initials }}
+          </button>
+          <div id="profileDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700 hidden">
+            <a href="{ route('profile.show') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
+            <a href="{ route('settings.index') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
+            </form>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -99,7 +99,7 @@
           <span class="text-gray-900 dark:text-white font-medium">{{ $user->name ?? 'User' }}</span>
         </div>
         <a href="{ route('profile.show') }}" class="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
-        <a href="{{ route('settings.index') }}" class="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+        <a href="{ route('settings.index') }}" class="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
         <form method="POST" action="{{ route('logout') }}">
           @csrf
           <button type="submit" class="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
@@ -209,22 +209,22 @@
     });
   </script>
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById('profileDropdownBtn');
-    const dropdown = document.getElementById('profileDropdownMenu');
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('profileDropdownBtn');
+      const dropdown = document.getElementById('profileDropdownMenu');
 
-    // Toggle dropdown on button click
-    toggleBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      dropdown.classList.toggle('hidden');
-    });
+      // Toggle dropdown on button click
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+      });
 
-    // Hide dropdown if clicked outside
-    document.addEventListener('click', function (e) {
-      if (!document.getElementById('profileDropdownWrapper').contains(e.target)) {
-        dropdown.classList.add('hidden');
-      }
+      // Hide dropdown if clicked outside
+      document.addEventListener('click', function(e) {
+        if (!document.getElementById('profileDropdownWrapper').contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      });
     });
-  });
-</script>
+  </script>
 </header>

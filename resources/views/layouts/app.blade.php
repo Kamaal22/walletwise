@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -37,21 +38,32 @@
     </button>
   </div>
   @endif
-  @if ($errors->any())
-  <div class="mb-4 text-red-600 text-sm text-center bg-red-50 p-2">
-    <ul>
-      @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif
-
-  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
-    @yield('content')
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--primary)'
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
   </main>
 
-  @include('partials.footer')
+  @php
+  $user = auth()->user();
+  $primary = $user?->getPreference('primary_color', '#0EA5A4') ?? '#0EA5A4';
+  $dark = $user?->getPreference('dark_mode') ? true : false;
+  @endphp
+
+  <body style="--primary: {{ $primary }}" class="{{ $dark ? 'dark' : '' }} bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+@yield('content')
+
 </body>
+@include('partials.footer')  
 
 </html>

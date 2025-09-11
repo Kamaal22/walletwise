@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'preferences',
     ];
 
     /**
@@ -44,6 +45,27 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Cast preferences JSON to array
+     */
+    protected $casts = [
+        'preferences' => 'array',
+    ];
+
+    // Preference helpers
+    public function getPreference($key, $default = null)
+    {
+        return data_get($this->preferences ?? [], $key, $default);
+    }
+
+    public function setPreference($key, $value)
+    {
+        $prefs = $this->preferences ?? [];
+        data_set($prefs, $key, $value);
+        $this->preferences = $prefs;
+        $this->save();
     }
 
     // Relationships

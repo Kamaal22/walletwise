@@ -55,22 +55,22 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                     <p class="text-xs text-gray-500">Total Balance</p>
-                    <p class="text-2xl font-semibold mt-1">${{ $summary['income'] - $summary['expenses'] }}</p>
+                    <p class="text-2xl font-semibold mt-1">${{ number_format($summary['total_balance'], 2) }}</p>
                 </div>
                 <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                     <p class="text-xs text-gray-500">This Month — Income</p>
-                    <p class="text-2xl font-semibold mt-1">${{ $summary['income'] }}</p>
+                    <p class="text-2xl font-semibold mt-1">${{ number_format($summary['income'], 2) }}</p>
                 </div>
                 <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                     <p class="text-xs text-gray-500">This Month — Expenses</p>
-                    <p class="text-2xl font-semibold text-red-600 mt-1">${{ $summary['expenses'] }}</p>
+                    <p class="text-2xl font-semibold text-red-600 mt-1">${{ number_format($summary['expenses'], 2) }}</p>
                 </div>
             </div>
 
             <!-- Charts + Activity -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <!-- Expenses Chart -->
-                <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+        <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                     <div class="flex items-start justify-between">
                         <h4 class="text-sm font-medium text-gray-700">Expenses — Monthly</h4>
                         <select class="text-sm text-gray-500 bg-transparent">
@@ -79,7 +79,7 @@
                         </select>
                     </div>
                     <div class="mt-4">
-                        <canvas id="expensesChart" class="w-full h-32"></canvas>
+            <canvas id="expensesChart" class="w-full h-40"></canvas>
                     </div>
                 </div>
 
@@ -93,11 +93,11 @@
                         @foreach($recentTransactions as $txn)
                             <li class="py-3 flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm font-medium">{{ $txn->category->name ?? 'N/A' }} — {{ $txn->description }}</p>
-                                    <p class="text-xs text-gray-500">{{ $txn->category->type ?? 'Expense' }} • {{ $txn->date->format('d M') }}</p>
+                                    <p class="text-sm font-medium">{{ $txn['category'] ?? 'N/A' }} — {{ $txn['description'] ?? '' }}</p>
+                                    <p class="text-xs text-gray-500">{{ $txn['date']->format('d M') }}</p>
                                 </div>
-                                <div class="text-sm {{ (is_string($txn->type) && strtolower($txn->type) === 'expense') ? 'text-red-600' : 'text-green-600' }}">
-                                   {{ (is_string($txn->type) && strtolower($txn->type) === 'expense') ?  '-$'.abs($txn->amount) : '+$'.$txn->amount }}
+                                <div class="text-sm {{ $txn['amount'] < 0 ? 'text-red-600' : 'text-green-600' }}">
+                                   {{ $txn['amount'] < 0 ? '-$'.number_format(abs($txn['amount']),2) : '+$'.number_format($txn['amount'],2) }}
                                 </div>
                             </li>
                         @endforeach
@@ -141,14 +141,14 @@
 <script>
 const ctx = document.getElementById('expensesChart').getContext('2d');
 const data = {
-    labels: {!! json_encode($user->transactions()->latest('date')->take(6)->pluck('date')->map(function($d) { return $d->format('M'); })->toArray()) !!},
+    labels: {!! json_encode($labels) !!},
     datasets: [{
         label: 'Expenses',
-        data: {!! json_encode($user->transactions()->where('amount','<',0)->latest('date')->take(6)->pluck('amount')->map(function($v) { return abs($v); })->toArray()) !!},
-        backgroundColor: '#0ea5a4'
+        data: {!! json_encode($expenseData) !!},
+        backgroundColor: getComputedStyle(document.body).getPropertyValue('--primary') || '#0ea5a4'
     }]
 };
-new Chart(ctx, { type: 'bar', data });
+new Chart(ctx, { type: 'bar', data, options: { responsive: true, maintainAspectRatio: false } });
 </script>
 @endpush
 @endsection

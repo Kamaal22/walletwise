@@ -17,7 +17,13 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Default User',
             'email' => 'user@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'preferences' => [
+                'primary_color' => '#0EA5A4',
+                'dark_mode' => false,
+                'language' => app()->getLocale(),
+                'export' => ['csv', 'pdf'],
+            ],
         ]);
     }
 }
